@@ -360,7 +360,6 @@ odformatfp(char fchar __unused, const char *fmt)
 static const char *
 odformatint(char fchar, const char *fmt)
 {
-	unsigned long long n;
 	size_t isize;
 	int digits;
 	char *end, *hdfmt;
@@ -403,12 +402,7 @@ odformatint(char fchar, const char *fmt)
 	 * base 8. We need one extra space for signed numbers
 	 * to store the sign.
 	 */
-	n = (1ULL << (8 * isize)) - 1;
-	digits = 0;
-	while (n != 0) {
-		digits++;
-		n >>= (fchar == 'x') ? 4 : 3;
-	}
+    digits = 8 * isize / (fchar == 'x' ? 4 : 3);
 	if (fchar == 'd')
 		digits++;
 	asprintf(&hdfmt, "%lu/%lu \"%*s%%%s%d%c\" \"\\n\"",

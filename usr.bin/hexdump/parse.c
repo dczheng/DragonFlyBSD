@@ -278,14 +278,14 @@ isint:				cs[2] = '\0';
 				cs[1] = cs[0];
 				cs[0] = 'q';
 				switch(fu->bcnt) {
-				case 0: case 4:
+				case 0:
 					pr->bcnt = 4;
 					break;
-				case 1:
-					pr->bcnt = 1;
-					break;
-				case 2:
-					pr->bcnt = 2;
+                case 1:
+                case 2:
+                case 4:
+                case 8:
+					pr->bcnt = fu->bcnt;
 					break;
 				default:
 					p1[1] = '\0';
